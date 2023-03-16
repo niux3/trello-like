@@ -7,8 +7,8 @@ let Navbar = ()=>{
             <div className="container">
                 <Link className="brand-logo" to="/">Trello like</Link>
                 <ul className="right">
-                    <li><NavLink to="/">application</NavLink></li>
-                    <li><NavLink to="https://github.com/niux3" target="_blank">github</NavLink></li>
+                    {/*<li><NavLink to="/">application</NavLink></li>*/}
+                    <li><NavLink to="https://github.com/niux3" target="_blank">mon github</NavLink></li>
                 </ul>
             </div>
         </nav>

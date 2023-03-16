@@ -1,8 +1,17 @@
-import {useState} from "react"
+import {useEffect, useState} from "react"
+import {useSetRecoilState, useRecoilValue} from "recoil"
+import {tasksData} from "../atoms/taskAtom"
+import {Task} from "./Task"
 
 export let Section = ({title, tasks})=>{
 
-    let [isHide, setIsHide] = useState(false)
+    let [isInputHide, setIsInputHide] = useState(false),
+        setTaskData = useSetRecoilState(tasksData),
+        taskData = useRecoilValue(tasksData)
+
+    useEffect(()=>{
+
+    }, [taskData])
 
     let onKeyEvent = e =>{
         switch(e.code){
@@ -12,11 +21,14 @@ export let Section = ({title, tasks})=>{
                     title: e.target.value,
                     section: title,
                     content: '',
-                    completed: false
+                    // completed: false
                 }
+                setTaskData(()=> [...taskData, row])
+                e.target.value = ""
+                setIsInputHide(false)
                 break
             case 'Escape':
-                setHide(false)
+                setIsInputHide(false)
                 break
         }
     }
@@ -26,14 +38,14 @@ export let Section = ({title, tasks})=>{
             <div className="card-content">
                 <span className="card-title">{title}</span>
                 {tasks.map(t =>(
-                    <p className="z-depth-1" key={t.id}>{t.title}</p>
+                    <Task key={t.id} data={t} />
                 ))}
-                <p className={!isHide ? 'hide' : ''}>
-                    <input className="input-task-title" type="text" onBlur={()=> setIsHide(false)} onKeyUp={onKeyEvent} placeholder="titre de la tâche"/>
+                <p className={!isInputHide ? 'hide' : ''}>
+                    <input className="input-task-title" type="text" onBlur={()=> setIsInputHide(false)} onKeyUp={onKeyEvent} placeholder="titre de la tâche"/>
                 </p>
             </div>
             <div className="card-action">
-                <button onClick={()=> setIsHide(true)} className="waves-effect waves-light btn"><span className="material-icons">add</span><span>ajouter une tâche</span></button>
+                <button onClick={()=> setIsInputHide(true)} className="waves-effect waves-light btn"><span className="material-icons">add</span><span>ajouter une tâche</span></button>
             </div>
         </div>
     )
