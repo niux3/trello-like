@@ -1,14 +1,26 @@
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {tasksData} from "../atoms/taskAtom";
+
+
 export let Form = ({data}) =>{
+    let setTasks = useSetRecoilState(tasksData),
+        tasks = useRecoilValue(tasksData)
     let onSubmit = e =>{
         e.preventDefault()
-        console.log(e)
+        let row = {
+            id: data.id,
+            section: e.target.querySelector('#section').value,
+            title: e.target.querySelector('#title').value,
+            content: e.target.querySelector('#content').value
+        }
+        setTasks([...tasks.filter(t => t.id !== data.id), row])
         document.querySelector('.modal header button').click()
     }
     return (
         <form onSubmit={onSubmit} className="container">
             <div className="row">
                 <div className="input-field col s12">
-                    <select id="section" className="browser-default">
+                    <select id="section" className="browser-default" defaultValue={data.section}>
                         <option>à faire</option>
                         <option>en cours</option>
                         <option>en recette</option>
