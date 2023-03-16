@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {useRecoilValue} from "recoil"
 import Navbar from './components/Navbar'
 import {Section} from "./components/Section"
