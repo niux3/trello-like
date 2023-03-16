@@ -1,0 +1,19 @@
+.board{
+  > .row{
+    margin: 50px 0;
+
+    > .card{
+      width: calc(25% - 10px);
+      margin-left: 10px;
+
+      .card-action{
+        .btn{
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
